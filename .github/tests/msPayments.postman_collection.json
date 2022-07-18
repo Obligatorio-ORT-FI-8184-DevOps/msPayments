@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "fb439199-2029-4b39-8857-47ce365dc6f1",
-		"name": "Payments",
+		"name": "msPayments",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -18,15 +18,15 @@
 							"    pm.response.to.be.json;\r",
 							"})\r",
 							"\r",
-							"pm.test(\"All properties &  \", () => {\r",
+							"pm.test(\"All properties & data types\", () => {\r",
 							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).to.be.an('object')\r",
 							"    pm.expect(responseJson.orderId).to.eql('someUUID');\r",
 							"    pm.expect(responseJson.success).to.be.a('boolean');\r",
 							"    pm.expect(responseJson.description).to.be.a('string');\r",
-							"    // pm.expect(responseJson.orderId).to.have.lengthOf(8);\r",
 							"})\r",
 							"\r",
-							"pm.test(\"Response time < 500ms\", () => {\r",
+							"pm.test(\"Response time below 500ms\", () => {\r",
 							"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
 							"})"
 						],
