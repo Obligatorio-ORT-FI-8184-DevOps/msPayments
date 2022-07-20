@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Payments",
+			"name": "PaymentsPost",
 			"event": [
 				{
 					"listen": "test",
@@ -36,6 +36,50 @@
 			],
 			"request": {
 				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/payments/someUUID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payments",
+						"someUUID"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PaymentGet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code & body format\", () => {\r",
+							"    pm.response.to.have.status(405)\r",
+							"    pm.response.to.be.json\r",
+							"})\r",
+							"\r",
+							"const responseJson = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Not allowed method\", () => {\r",
+							"    pm.expect(responseJson).to.be.an('object')\r",
+							"    pm.expect(responseJson.path).to.equal('/payments/someUUID')\r",
+							"    pm.expect(responseJson.error).to.equal('Method Not Allowed')\r",
+							"    var valid = (new Date(responseJson.timestamp)).getTime() > 0\r",
+							"    pm.expect(valid).to.be.equal(true)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
 				"header": [],
 				"url": {
 					"raw": "http://localhost:8080/payments/someUUID",
